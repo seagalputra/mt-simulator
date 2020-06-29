@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://thymeleaf.org/"
+      layout:decorate="~{layout}">
+<body>
+<div class="row" layout:fragment="content">
+
+    <!-- Input Form -->
+    <div class="col-6">
+        <div class="bg-info p-2 rounded-lg">
+            <p class="text-white text-center m-0">INPUT</p>
+        </div>
+
+        <form th:action="@{/}" class="mt-4 px-2" method="POST" th:object="${simulator}">
+            <div class="row">
+                <div class="col-9">
+                    <div class="form-group form-row">
+                        <label for="mtInputType" class="col-3 col-form-label">MT Input : </label>
+                        <select name="mtInputType" id="mtInputType" class="form-control col-9" th:field="*{inputType}">
+                            <option value="mt300NonNdf">MT300 Non NDF</option>
+                            <option value="mt300NdfOpening">MT300 NDF Opening</option>
+                            <option value="mt300NdfFixing">MT300 NDF Fixing</option>
+                            <option value="mt305">MT305</option>
+                            <option value="mt320Borrow">MT320 Borrow</option>
+                            <option value="mt320Lend">MT320 Lend</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-3">
+                    <button type="submit" class="btn btn-primary">GENERATE</button>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <div class="nav nav-tabs card-header-tabs" id="nav-tab" role="tablist">
+                        <a href="#input" class="nav-item nav-link active" id="nav-input-tab" data-toggle="tab" role="tab" aria-controls="nav-input" aria-selected="true">Input</a>
+                    </div>
+                </div>
+
+                <div class="card-body p-3">
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-input" role="tabpanel" aria-labelledby="nav-input-tab">
+                            <div class="form-group m-0">
+                                <textarea name="message" id="message" rows="20" class="form-control" th:value="${simulator.message}"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Output Form -->
+    <div class="col-6">
+        <div class="bg-info p-2 rounded-lg">
+            <p class="text-white text-center m-0">OUTPUT</p>
+        </div>
+
+        <form class="mt-4 px-2">
+            <div class="row">
+                <div class="col-8">
+                    <div class="form-group form-row">
+                        <label for="mtEnvironmentType" class="col-4 col-form-label">Environment : </label>
+                        <select name="mtEnvironmentType" id="mtEnvironmentType" class="form-control col-8">
+                            <option value="mt300NonNdf" selected disabled>Select an environment</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="d-flex align-items-start">
+                        <button type="submit" class="btn btn-primary mr-2">PUT</button>
+                        <button type="button" class="btn btn-primary">View Log</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <div class="nav nav-tabs card-header-tabs" id="nav-output-tab" role="tablist">
+                        <a href="#auto-match" class="nav-item nav-link active" id="nav-auto-match-tab" data-toggle="tab" role="tab" aria-controls="nav-auto-match-tab" aria-selected="true">Auto Match</a>
+                        <a href="#partial-match" class="nav-item nav-link" id="nav-partial-match-tab" data-toggle="tab" role="tab" aria-controls="nav-partial-match-tab" aria-selected="false">Partial Match</a>
+                        <a href="#unmatch" class="nav-item nav-link" id="nav-unmatch-tab" data-toggle="tab" role="tab" aria-controls="nav-unmatch-tab" aria-selected="false">UnMatch</a>
+                    </div>
+                </div>
+                <div class="card-body p-3">
+                    <div class="tab-content" id="nav-output-tab-content">
+                        <div class="tab-pane fade show active" id="auto-match" role="tabpanel" aria-labelledby="nav-auto-match-tab">
+                            <div class="form-group m-0">
+                                <textarea name="simulator" rows="20" class="form-control"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="partial-match" role="tabpanel" aria-labelledby="nav-parital-match-tab">
+                            <div class="form-group m-0">
+                                <textarea name="simulator" rows="20" class="form-control"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="unmatch" role="tabpanel" aria-labelledby="nav-unmatch-tab">
+                            <div class="form-group m-0">
+                                <textarea name="simulator" rows="20" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
