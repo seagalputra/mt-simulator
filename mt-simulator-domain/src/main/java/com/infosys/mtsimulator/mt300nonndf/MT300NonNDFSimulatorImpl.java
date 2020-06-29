@@ -1,5 +1,6 @@
 package com.infosys.mtsimulator.mt300nonndf;
 
+import com.infosys.mtsimulator.SimulatorStrategy;
 import com.infosys.mtsimulator.basesimulator.BaseSimulator;
 import javassist.NotFoundException;
 import lombok.AllArgsConstructor;
@@ -9,7 +10,7 @@ import static com.infosys.mtsimulator.constant.MTSimulatorConstant.*;
 
 @Service
 @AllArgsConstructor
-public class MT300NonNDFSimulatorImpl implements MT300NonNDFSimulator {
+public class MT300NonNDFSimulatorImpl implements SimulatorStrategy {
     private final BaseSimulator baseSimulator;
 
     @Override

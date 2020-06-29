@@ -8,6 +8,7 @@
         <module>mt-simulator-domain</module>
         <module>mt-simulator-properties</module>
         <module>mt-simulator-web</module>
+        <module>mt-simulator-api</module>
     </modules>
 
     <parent>

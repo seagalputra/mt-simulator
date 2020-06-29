@@ -8,9 +8,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <packaging>jar</packaging>
 
-    <artifactId>mt-simulator-entity</artifactId>
-
+    <artifactId>mt-simulator-api</artifactId>
 
 </project>

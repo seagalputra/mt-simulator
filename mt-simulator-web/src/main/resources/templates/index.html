@@ -16,8 +16,8 @@
             <div class="row">
                 <div class="col-9">
                     <div class="form-group form-row">
-                        <label for="mtInputType" class="col-3 col-form-label">MT Input : </label>
-                        <select name="mtInputType" id="mtInputType" class="form-control col-9" th:field="*{inputType}">
+                        <label for="simulatorType" class="col-3 col-form-label">MT Input : </label>
+                        <select name="simulatorType" id="simulatorType" class="form-control col-9">
                             <option value="mt300NonNdf">MT300 Non NDF</option>
                             <option value="mt300NdfOpening">MT300 NDF Opening</option>
                             <option value="mt300NdfFixing">MT300 NDF Fixing</option>
@@ -44,7 +44,7 @@
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="nav-input" role="tabpanel" aria-labelledby="nav-input-tab">
                             <div class="form-group m-0">
-                                <textarea name="message" id="message" rows="20" class="form-control" th:value="${simulator.message}"></textarea>
+                                <textarea name="simulatorMessage" id="simulatorMessage" rows="20" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
