@@ -1,11 +1,10 @@
 package com.infosys.mtsimulator.basesimulator;
 
+import com.infosys.mtsimulator.entity.MatchedString;
 import javassist.NotFoundException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,14 +34,63 @@ class BaseSimulatorImplTest {
                 .getPattern(":20:")
                 .pattern();
 
-        Map<String, String> matchedString = new HashMap<>();
+        MatchedString matchedString = new MatchedString();
         try {
             matchedString = baseSimulator.matchPattern(":20:1234\n:8T:ACVD\n:12D:78839,\n", pattern);
         } catch (NotFoundException e) {
             e.printStackTrace();
         }
 
-        assertEquals(":20:1234", matchedString.get("matched"));
-        assertEquals("1234", matchedString.get("value"));
+        assertEquals(":20:1234", matchedString.getMatched());
+        assertEquals("1234", matchedString.getValue());
+    }
+
+    @Test
+    public void shouldThrowErrorWhenStringNotFoundInMessage() {
+        String pattern = baseSimulator
+                .getPattern(":21")
+                .pattern();
+
+        Assertions.assertThrows(NotFoundException.class, () -> {
+           baseSimulator.matchPattern(":20:1234\n:8T:ACVD\n:12D:78839,\n", pattern);
+        });
+    }
+
+    @Test
+    public void shouldReplaceApplicationHeader() {
+        String replacedApplicationHeader = baseSimulator.replaceApplicationHeader("{1:F01CENAIDJAAXXX0000000000}{2:I3001234556XXXXXN}");
+        assertEquals("{1:F01CENAIDJAAXXX0000000000}{2:O3001234556XXXXXN}", replacedApplicationHeader);
+    }
+
+    @Test
+    public void shouldAddCPTYPrefixInSpecificMessageKey() {
+        String addedPrefix = baseSimulator.addPrefixCPTY(":20:", ":15A:\n:20:6669-1\n:22A:NEWT\n:22C:9625CENAJA\n");
+        assertEquals(":15A:\n:20:CPTY6669-1\n:22A:NEWT\n:22C:9625CENAJA\n", addedPrefix);
+    }
+
+    @Test
+    public void shouldReturnSwappedValueMessageWithSpecificKey() {
+        String swappedValue = "";
+        try {
+            swappedValue = baseSimulator.swapValue(":82A:", ":87A:", ":82A:CENAIDJA\n:87A:1234556");
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
+        assertEquals(":82A:1234556\n:87A:CENAIDJA", swappedValue);
+    }
+
+    @Test
+    public void shouldReturnSwappedFieldWithSpecificKey() {
+        String swappedField = baseSimulator.swapField(":57A:", ":32B:IDR11559625000,\n:57A:CENAIDJA\n:33B:EUR1000000,\n:57A:1234556\n");
+        assertEquals(":32B:IDR11559625000,\n:57A:1234556\n:33B:EUR1000000,\n:57A:CENAIDJA\n", swappedField);
+    }
+
+    @Test
+    public void shouldReturnRemovedUnusedField() {
+        String removedField = baseSimulator.removeUnusedField(":58A:", "{1:F01CENAIDJAAXXX0000000000}{2:O3001234556XXXXXN}{3:{108:6669}}{4:\n:15A:\n:20:CPTY6669-1\n:22A:NEWT\n:22C:9625CENAJA\n:17I:Y\n:82A:1234556\n:87A:CENAIDJA\n:17F:N\n:15B:\n:30T:20200203\n:30V:20200205\n:36:11559,625\n:32B:IDR11559625000,\n:57A:1234556\n:33B:EUR1000000,\n:57A:CENAIDJA\n:58A:1234556\n:15E:\n:35B:\n:17Y:F\n:17Z:Y\n:22Q:ALP-INV-FVOCI-S\n:17Q:Y\n-}");
+        assertEquals(
+                "{1:F01CENAIDJAAXXX0000000000}{2:O3001234556XXXXXN}{3:{108:6669}}{4:\n:15A:\n:20:CPTY6669-1\n:22A:NEWT\n:22C:9625CENAJA\n:17I:Y\n:82A:1234556\n:87A:CENAIDJA\n:17F:N\n:15B:\n:30T:20200203\n:30V:20200205\n:36:11559,625\n:32B:IDR11559625000,\n:57A:1234556\n:33B:EUR1000000,\n:57A:CENAIDJA\n-}",
+                removedField
+        );
     }
 }

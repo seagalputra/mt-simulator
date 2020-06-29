@@ -11,5 +11,13 @@
 
     <artifactId>mt-simulator-domain</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.infosys</groupId>
+            <artifactId>mt-simulator-entity</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
 
 </project>
