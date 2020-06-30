@@ -23,7 +23,7 @@ public class SimulatorServiceImpl implements SimulatorService, ApplicationContex
                 .stream()
                 .filter(simulatorStrategy -> simulatorStrategy.isSupport(request.getSimulatorType()))
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() -> new NullPointerException("No Simulator Supported!"));
 
         return parseSimulatorMessage(request, simulator);
     }

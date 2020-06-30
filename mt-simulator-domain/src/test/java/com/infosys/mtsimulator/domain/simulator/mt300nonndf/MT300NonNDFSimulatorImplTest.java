@@ -7,6 +7,7 @@ import javassist.NotFoundException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MT300NonNDFSimulatorImplTest {
 
     @Autowired
+    @Qualifier("MT300NonNDFSimulatorImpl")
     private SimulatorStrategy mt300NonNDFSimulator;
     private static String inputMessage;
 
