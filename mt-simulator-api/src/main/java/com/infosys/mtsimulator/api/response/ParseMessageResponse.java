@@ -1,12 +1,12 @@
-package com.infosys.mtsimulator.simulator.response;
+package com.infosys.mtsimulator.api.response;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+@Builder
 public class ParseMessageResponse {
     private String autoMatchMessage;
     private String partialMatchMessage;

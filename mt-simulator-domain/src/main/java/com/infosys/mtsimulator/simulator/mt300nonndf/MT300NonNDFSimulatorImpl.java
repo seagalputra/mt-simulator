@@ -14,6 +14,11 @@ public class MT300NonNDFSimulatorImpl implements SimulatorStrategy {
     private final BaseSimulator baseSimulator;
 
     @Override
+    public boolean isSupport(String simulatorType) {
+        return MT300_NON_NDF.equals(simulatorType);
+    }
+
+    @Override
     public String parse(String message, String type) throws NotFoundException {
         String messageResult = baseSimulator.replaceApplicationHeader(message);
         messageResult = baseSimulator.addPrefixCPTY(":20:", messageResult);

@@ -1,12 +1,12 @@
-package com.infosys.mtsimulator.simulator.request;
+package com.infosys.mtsimulator.api.request;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+@Builder
 public class ParseMessageRequest {
     private String simulatorType;
     private String simulatorMessage;

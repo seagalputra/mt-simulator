@@ -3,7 +3,6 @@ package com.infosys.mtsimulator.simulator.basesimulator;
 import com.infosys.mtsimulator.entity.MatchedString;
 import javassist.NotFoundException;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
