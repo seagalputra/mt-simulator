@@ -1,4 +1,4 @@
-package com.infosys.mtsimulator.simulator;
+package com.infosys.mtsimulator.domain.simulator;
 
 import javassist.NotFoundException;
 

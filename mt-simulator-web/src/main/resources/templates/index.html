@@ -59,13 +59,13 @@
             <p class="text-white text-center m-0">OUTPUT</p>
         </div>
 
-        <form class="mt-4 px-2">
+        <form class="mt-4 px-2" th:object="${simulatorResult}">
             <div class="row">
                 <div class="col-8">
                     <div class="form-group form-row">
                         <label for="mtEnvironmentType" class="col-4 col-form-label">Environment : </label>
                         <select name="mtEnvironmentType" id="mtEnvironmentType" class="form-control col-8">
-                            <option value="mt300NonNdf" selected disabled>Select an environment</option>
+                            <option selected disabled>Select an environment</option>
                         </select>
                     </div>
                 </div>
@@ -90,19 +90,19 @@
                     <div class="tab-content" id="nav-output-tab-content">
                         <div class="tab-pane fade show active" id="auto-match" role="tabpanel" aria-labelledby="nav-auto-match-tab">
                             <div class="form-group m-0">
-                                <textarea name="simulator" rows="20" class="form-control"></textarea>
+                                <textarea rows="20" class="form-control" th:text="${simulatorResult.autoMatchMessage}"></textarea>
                             </div>
                         </div>
 
-                        <div class="tab-pane fade" id="partial-match" role="tabpanel" aria-labelledby="nav-parital-match-tab">
+                        <div class="tab-pane fade" id="partial-match" role="tabpanel" aria-labelledby="nav-partial-match-tab">
                             <div class="form-group m-0">
-                                <textarea name="simulator" rows="20" class="form-control"></textarea>
+                                <textarea rows="20" class="form-control" th:text="${simulatorResult.partialMatchMessage}"></textarea>
                             </div>
                         </div>
 
                         <div class="tab-pane fade" id="unmatch" role="tabpanel" aria-labelledby="nav-unmatch-tab">
                             <div class="form-group m-0">
-                                <textarea name="simulator" rows="20" class="form-control"></textarea>
+                                <textarea rows="20" class="form-control" th:text="${simulatorResult.unMatchMessage}"></textarea>
                             </div>
                         </div>
                     </div>

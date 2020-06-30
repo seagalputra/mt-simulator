@@ -1,8 +1,8 @@
-package com.infosys.mtsimulator.simulator.mt300nonndf;
+package com.infosys.mtsimulator.domain.simulator.mt300nonndf;
 
-import com.infosys.mtsimulator.DomainConfiguration;
-import com.infosys.mtsimulator.simulator.SimulatorStrategy;
-import com.infosys.mtsimulator.constant.MTSimulatorConstant;
+import com.infosys.mtsimulator.domain.DomainConfiguration;
+import com.infosys.mtsimulator.domain.simulator.SimulatorStrategy;
+import com.infosys.mtsimulator.domain.constant.MTSimulatorConstant;
 import javassist.NotFoundException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

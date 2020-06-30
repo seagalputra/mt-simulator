@@ -1,4 +1,4 @@
-package com.infosys.mtsimulator;
+package com.infosys.mtsimulator.domain;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

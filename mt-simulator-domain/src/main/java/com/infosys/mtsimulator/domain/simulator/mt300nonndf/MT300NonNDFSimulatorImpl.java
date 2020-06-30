@@ -1,12 +1,12 @@
-package com.infosys.mtsimulator.simulator.mt300nonndf;
+package com.infosys.mtsimulator.domain.simulator.mt300nonndf;
 
-import com.infosys.mtsimulator.simulator.SimulatorStrategy;
-import com.infosys.mtsimulator.simulator.basesimulator.BaseSimulator;
+import com.infosys.mtsimulator.domain.simulator.SimulatorStrategy;
+import com.infosys.mtsimulator.domain.simulator.basesimulator.BaseSimulator;
 import javassist.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import static com.infosys.mtsimulator.constant.MTSimulatorConstant.*;
+import static com.infosys.mtsimulator.domain.constant.MTSimulatorConstant.*;
 
 @Component
 @AllArgsConstructor

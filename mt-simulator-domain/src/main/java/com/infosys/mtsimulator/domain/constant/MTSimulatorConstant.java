@@ -1,4 +1,4 @@
-package com.infosys.mtsimulator.constant;
+package com.infosys.mtsimulator.domain.constant;
 
 public class MTSimulatorConstant {
     public final static String AM = "AM";

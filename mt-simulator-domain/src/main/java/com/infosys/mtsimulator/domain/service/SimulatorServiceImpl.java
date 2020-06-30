@@ -1,6 +1,6 @@
-package com.infosys.mtsimulator.service;
+package com.infosys.mtsimulator.domain.service;
 
-import com.infosys.mtsimulator.simulator.SimulatorStrategy;
+import com.infosys.mtsimulator.domain.simulator.SimulatorStrategy;
 import com.infosys.mtsimulator.api.request.ParseMessageRequest;
 import com.infosys.mtsimulator.api.response.ParseMessageResponse;
 import javassist.NotFoundException;
@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 
-import static com.infosys.mtsimulator.constant.MTSimulatorConstant.*;
+import static com.infosys.mtsimulator.domain.constant.MTSimulatorConstant.*;
 
 @Service
 public class SimulatorServiceImpl implements SimulatorService, ApplicationContextAware {
