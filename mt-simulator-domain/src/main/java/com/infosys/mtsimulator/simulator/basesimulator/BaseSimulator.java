@@ -1,4 +1,4 @@
-package com.infosys.mtsimulator.basesimulator;
+package com.infosys.mtsimulator.simulator.basesimulator;
 
 import com.infosys.mtsimulator.entity.MatchedString;
 import javassist.NotFoundException;

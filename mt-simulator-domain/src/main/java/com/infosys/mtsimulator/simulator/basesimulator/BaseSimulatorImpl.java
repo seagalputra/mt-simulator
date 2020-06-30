@@ -1,17 +1,17 @@
-package com.infosys.mtsimulator.basesimulator;
+package com.infosys.mtsimulator.simulator.basesimulator;
 
 import com.infosys.mtsimulator.entity.MatchedString;
 import javassist.NotFoundException;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Service
+@Component
 public class BaseSimulatorImpl implements BaseSimulator {
     @Override
     public Pattern getPattern(String key) {

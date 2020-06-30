@@ -1,14 +1,14 @@
-package com.infosys.mtsimulator.mt300nonndf;
+package com.infosys.mtsimulator.simulator.mt300nonndf;
 
-import com.infosys.mtsimulator.SimulatorStrategy;
-import com.infosys.mtsimulator.basesimulator.BaseSimulator;
+import com.infosys.mtsimulator.simulator.SimulatorStrategy;
+import com.infosys.mtsimulator.simulator.basesimulator.BaseSimulator;
 import javassist.NotFoundException;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import static com.infosys.mtsimulator.constant.MTSimulatorConstant.*;
 
-@Service
+@Component
 @AllArgsConstructor
 public class MT300NonNDFSimulatorImpl implements SimulatorStrategy {
     private final BaseSimulator baseSimulator;

@@ -1,20 +1,21 @@
-package com.infosys.mtsimulator.basesimulator;
+package com.infosys.mtsimulator.simulator.basesimulator;
 
+import com.infosys.mtsimulator.DomainConfiguration;
 import com.infosys.mtsimulator.entity.MatchedString;
 import javassist.NotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest(classes = DomainConfiguration.class)
 class BaseSimulatorImplTest {
-    private static BaseSimulator baseSimulator;
 
-    @BeforeAll
-    public static void setup() {
-        baseSimulator = new BaseSimulatorImpl();
-    }
+    @Autowired
+    private BaseSimulator baseSimulator;
 
     @Test
     public void shouldHaveReplacedValueInMoreLineMessage() {
