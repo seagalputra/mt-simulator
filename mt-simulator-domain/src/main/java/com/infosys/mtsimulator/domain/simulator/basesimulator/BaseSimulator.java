@@ -14,5 +14,6 @@ public interface BaseSimulator {
     String replaceValue(String key, String message, String messageReplacement);
     String removeField(String key, String message);
     String swapField(String key, String message);
+    String swapField(String firstKey, String secondKey, String message) throws NotFoundException;
     String removeUnusedField(String key, String message);
 }

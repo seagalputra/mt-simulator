@@ -20,6 +20,13 @@ public class MT300NDFOpeningImpl implements SimulatorStrategy {
 
     @Override
     public String parse(String message, String type) throws NotFoundException {
-        return null;
+        String messageResult = baseSimulator.replaceApplicationHeader(message);
+        messageResult = baseSimulator.addPrefixCPTY(":20:", messageResult);
+        messageResult = baseSimulator.removeUnusedField(":58A:", messageResult);
+        messageResult = baseSimulator.swapValue(":82A:", ":87A:", messageResult);
+        messageResult = baseSimulator.swapField(":57J:", ":57A:", messageResult);
+        messageResult = baseSimulator.swapValue(":32B:", ":33B:", messageResult);
+
+        return messageResult;
     }
 }

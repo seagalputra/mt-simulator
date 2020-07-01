@@ -93,4 +93,15 @@ class BaseSimulatorImplTest {
                 removedField
         );
     }
+
+    @Test
+    public void shouldReturnSwappedFieldInMessageWithTwoKeys() {
+        String swappedField = "";
+        try {
+            swappedField = baseSimulator.swapField(":57J:", ":57A:", ":32B:USD1000000,\n:57J:/NOSI/NETS\n:33B:IDR17076000000,\n:57A:1234556");
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
+        assertEquals(":32B:USD1000000,\n:57A:1234556\n:33B:IDR17076000000,\n:57J:/NOSI/NETS", swappedField);
+    }
 }

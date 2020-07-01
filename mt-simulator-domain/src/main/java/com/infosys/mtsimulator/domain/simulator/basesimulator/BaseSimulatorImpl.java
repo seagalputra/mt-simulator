@@ -71,6 +71,16 @@ public class BaseSimulatorImpl implements BaseSimulator {
     }
 
     @Override
+    public String swapField(String firstKey, String secondKey, String message) throws NotFoundException {
+        MatchedString firstMatched = matchPattern(message, firstKey);
+        MatchedString secondMatched = matchPattern(message, secondKey);
+
+        return message.replace(firstMatched.getMatched(), "*")
+                .replace(secondMatched.getMatched(), firstMatched.getMatched())
+                .replace("*", secondMatched.getMatched());
+    }
+
+    @Override
     public String removeUnusedField(String key, String message) {
         List<String> listMessage = new ArrayList<>(Arrays.asList(message.split(key)));
         listMessage.remove(listMessage.size() - 1);
