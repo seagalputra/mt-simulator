@@ -57,7 +57,7 @@ public class BaseSimulatorImpl implements BaseSimulator {
 
     @Override
     public String removeField(String key, String message) {
-        return message.replaceFirst("^" + key + "(.*)\\n", "");
+        return message.replaceFirst("(?m)^" + key + "(.*)\\n", "");
     }
 
     @Override
