@@ -65,4 +65,43 @@ class MT305SimulatorImplTest {
 
         assertEquals(expectedBuyResult, actualBuyResult);
     }
+
+    @Test
+    public void shouldReturnParsedMessageWithSellMessageInputInAutoMatch() {
+        String expectedSellResult = "{1:F01CENAIDJAAXXX0000000000}{2:O3051234556XXXXXN}{3:{108:7261}}{4:\n:15A:\n:20:CPTY7261-1\n:21:NEW\n:22:NEW/0014CENAJA\n:23:BUY/PUT/E/USD\n:82A:1234556\n:87A:CENAIDJA\n:30:200203\n:31G:200330/1500/JPTO\n:31E:200402\n:26F:PRINCIPAL\n:32B:USD2000000,\n:36:14000,\n:33B:IDR28000000000,\n:37K:PCT0,\n:34P:200203USD92,35\n:57A:/888888888\nCENAIDJA\nFXVAOP\nF\nY\nFXO-FVTPL-OP1\nY\n-}";
+        String actualSellResult = "";
+        try {
+            actualSellResult = mt305Simulator.parse(sellMessage, AM);
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
+
+        assertEquals(expectedSellResult, actualSellResult);
+    }
+
+    @Test
+    public void shouldReturnParsedMessageWithSellMessageInputInPartialMatch() {
+        String expectedSellResult = "{1:F01CENAIDJAAXXX0000000000}{2:O3051234556XXXXXN}{3:{108:7261}}{4:\n:15A:\n:20:CPTY7261-1\n:21:NEW\n:22:NEW/0014CENAJA\n:23:BUY/PUT/E/USD\n:82A:1234556\n:87A:CENAIDJA\n:30:20191225\n:31G:200330/1500/JPTO\n:31E:200402\n:26F:PRINCIPAL\n:32B:USD2000000,\n:36:14000,\n:33B:IDR28000000000,\n:37K:PCT0,\n:34P:200203USD92,35\n:57A:/888888888\nCENAIDJA\nFXVAOP\nF\nY\nFXO-FVTPL-OP1\nY\n-}";
+        String actualSellResult = "";
+        try {
+            actualSellResult = mt305Simulator.parse(sellMessage, PM);
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
+
+        assertEquals(expectedSellResult, actualSellResult);
+    }
+
+    @Test
+    public void shouldReturnParsedMessageWithSellMessageInputInUnMatch() {
+        String expectedSellResult = "{1:F01CENAIDJAAXXX0000000000}{2:O3051234556XXXXXN}{3:{108:7261}}{4:\n:15A:\n:20:CPTY7261-1\n:21:NEW\n:22:NEW/0014CENAJA\n:23:BUY/PUT/E/USD\n:82A:1234556\n:87A:CENAIDJA\n:30:20191225\n:31G:200330/1500/JPTO\n:31E:20200101\n:26F:PRINCIPAL\n:32B:USD2000000,\n:36:14000,\n:33B:IDR28000000000,\n:37K:PCT0,\n:34P:200203USD92,35\n:57A:/888888888\nCENAIDJA\nFXVAOP\nF\nY\nFXO-FVTPL-OP1\nY\n-}";
+        String actualSellResult = "";
+        try {
+            actualSellResult = mt305Simulator.parse(sellMessage, UM);
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
+
+        assertEquals(expectedSellResult, actualSellResult);
+    }
 }

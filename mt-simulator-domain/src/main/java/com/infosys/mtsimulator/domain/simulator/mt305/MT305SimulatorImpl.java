@@ -30,11 +30,14 @@ public class MT305SimulatorImpl implements SimulatorStrategy {
         messageResult = baseSimulator.addPrefixCPTY(":20:", messageResult);
         messageResult = baseSimulator.swapValue(":82A:", ":87A:", messageResult);
 
-        if (messageResult.contains(":23:BUY")) {
+        if (isContains(messageResult, ":23:BUY")) {
             messageResult = messageResult.replace(":23:BUY", ":23:SELL");
             messageResult = messageResult.replace(":34P:", ":34R:");
             messageResult = baseSimulator.removeUnusedField(":22U:", messageResult);
             messageResult = removeSenderCorrespondent(messageResult);
+        } else if (isContains(messageResult, ":23:SELL")) {
+            messageResult = messageResult.replace(":23:SELL", ":23:BUY");
+            messageResult = messageResult.replace(":34R:", ":34P:");
         }
 
         if (isPartialMatch(type) || isUnMatchType(type)) {
@@ -47,9 +50,13 @@ public class MT305SimulatorImpl implements SimulatorStrategy {
         return messageResult;
     }
 
+    private boolean isContains(String message, String key) {
+        return message.contains(key);
+    }
+
     private String removeSenderCorrespondent(String message) {
         List<String> listMessage = Arrays.asList(message.split("\n"));
-        int senderIndex = Iterables.indexOf(listMessage, element -> element.contains(":53A:"));
+        int senderIndex = Iterables.indexOf(listMessage, element -> isContains(element, ":53A:"));
         List<String> removedMessage = new ArrayList<>();
 
         for (int index = 0; index < listMessage.size(); index++) {
