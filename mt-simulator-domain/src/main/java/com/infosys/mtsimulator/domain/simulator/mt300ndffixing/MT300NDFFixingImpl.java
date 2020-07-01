@@ -1,0 +1,33 @@
+package com.infosys.mtsimulator.domain.simulator.mt300ndffixing;
+
+import com.infosys.mtsimulator.domain.simulator.SimulatorStrategy;
+import com.infosys.mtsimulator.domain.simulator.basesimulator.BaseSimulator;
+import javassist.NotFoundException;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
+
+import static com.infosys.mtsimulator.domain.constant.MTSimulatorConstant.*;
+
+@Component
+@AllArgsConstructor
+public class MT300NDFFixingImpl implements SimulatorStrategy {
+
+    private final BaseSimulator baseSimulator;
+
+    @Override
+    public boolean isSupport(String simulatorType) {
+        return MT300_NDF_FIXING.equals(simulatorType);
+    }
+
+    @Override
+    public String parse(String message, String type) throws NotFoundException {
+        String messageResult = baseSimulator.replaceApplicationHeader(message);
+        messageResult = baseSimulator.addPrefixCPTY(":20:", messageResult);
+        messageResult = baseSimulator.removeUnusedField(":58A:", messageResult);
+        messageResult = baseSimulator.swapValue(":32B:", ":33B:", messageResult);
+        messageResult = baseSimulator.addPrefixCPTY(":21A:", messageResult);
+        messageResult = baseSimulator.swapValue(":82A:", ":87A:", messageResult);
+        messageResult = baseSimulator.swapField(":57J:", ":57A:", messageResult);
+        return messageResult;
+    }
+}
