@@ -16,6 +16,7 @@ public class DashboardController {
 
     private final SimulatorService simulatorService;
     private ParseMessageResponse parseMessageResponse;
+    private ParseMessageRequest parseMessageRequest;
 
     public DashboardController(SimulatorService simulatorService) {
         this.simulatorService = simulatorService;
@@ -23,22 +24,26 @@ public class DashboardController {
 
     @GetMapping
     public ModelAndView messageForm() {
-        ParseMessageRequest parseMessageRequest = ParseMessageRequest.builder().build();
-        ParseMessageResponse parseMessageResponse = ParseMessageResponse.builder().build();
+        ParseMessageRequest request = ParseMessageRequest.builder().build();
+        ParseMessageResponse response = ParseMessageResponse.builder().build();
         ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("simulator", parseMessageRequest);
-        modelAndView.addObject("simulatorResult", parseMessageResponse);
+        modelAndView.addObject("simulator", request);
+        modelAndView.addObject("simulatorResult", response);
         return modelAndView;
     }
 
     @PostMapping
-    public String simulator(@ModelAttribute ParseMessageRequest parseMessageRequest) {
-        this.parseMessageResponse = simulatorService.parseMessage(parseMessageRequest);
+    public String simulator(@ModelAttribute ParseMessageRequest request) {
+        this.parseMessageResponse = simulatorService.parseMessage(request);
+        this.parseMessageRequest = request;
         return "redirect:/simulator/result";
     }
 
     @GetMapping("/simulator/result")
     public ModelAndView getSimulatorResult() {
-        return new ModelAndView("index", "simulatorResult", this.parseMessageResponse);
+        ModelAndView modelAndView = new ModelAndView("index");
+        modelAndView.addObject("simulator", this.parseMessageRequest);
+        modelAndView.addObject("simulatorResult", this.parseMessageResponse);
+        return modelAndView;
     }
 }

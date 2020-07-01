@@ -6,6 +6,8 @@ import javassist.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import static com.infosys.mtsimulator.domain.constant.MTSimulatorConstant.*;
+
 @Component
 @AllArgsConstructor
 public class MT300NDFOpeningImpl implements SimulatorStrategy {
@@ -13,7 +15,7 @@ public class MT300NDFOpeningImpl implements SimulatorStrategy {
 
     @Override
     public boolean isSupport(String simulatorType) {
-        return false;
+        return MT300_NDF_OPENING.equals(simulatorType);
     }
 
     @Override
