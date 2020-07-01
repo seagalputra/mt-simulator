@@ -27,6 +27,14 @@ public class MT300NDFOpeningImpl implements SimulatorStrategy {
         messageResult = baseSimulator.swapField(":57J:", ":57A:", messageResult);
         messageResult = baseSimulator.swapValue(":32B:", ":33B:", messageResult);
 
+        if (isPartialMatch(type) || isUnMatchType(type))
+            messageResult = baseSimulator.replaceValue(":30T:", messageResult, ":30T:20192512");
+
+        if (isUnMatchType(type)) {
+            messageResult = baseSimulator.replaceValue(":30V:", messageResult, ":30V:20200101");
+            messageResult = baseSimulator.replaceValue(":32E:", messageResult, ":32E:MYR");
+        }
+
         return messageResult;
     }
 }
