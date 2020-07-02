@@ -66,6 +66,9 @@
                         <label for="mtEnvironmentType" class="col-4 col-form-label">Environment : </label>
                         <select name="mtEnvironmentType" id="mtEnvironmentType" class="form-control col-8">
                             <option selected disabled>Select an environment</option>
+                            <div th:each="configuration : ${environmentConfiguration}">
+                                <option th:value="${configuration.ip}" th:text="${configuration.name} + ' ' + ${configuration.ip} + ' ' + ${configuration.path}"></option>
+                            </div>
                         </select>
                     </div>
                 </div>
