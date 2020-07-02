@@ -6,7 +6,7 @@ import javassist.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import static com.infosys.mtsimulator.domain.constant.MTSimulatorConstant.MT320BORROW;
+import static com.infosys.mtsimulator.domain.constant.MTSimulatorConstant.*;
 
 @Component
 @AllArgsConstructor
@@ -28,6 +28,16 @@ public class MT320BorrowSimulatorImpl implements SimulatorStrategy {
         messageResult = baseSimulator.swapField(":57A:", messageResult);
         messageResult = messageResult.replace(":34E:", ":34E:N");
         messageResult = baseSimulator.removeField(":58A:", messageResult);
+
+        if (isPartialMatch(type) || isUnMatchType(type)) {
+            messageResult = baseSimulator.replaceValue(":30T:", messageResult, ":30T:20191225");
+        }
+
+        if (isUnMatchType(type)) {
+            messageResult = baseSimulator.replaceValue(":30V:", messageResult, ":30V:20191225");
+            messageResult = baseSimulator.replaceValue(":30P:", messageResult, ":30P:20200101");
+        }
+
         return messageResult;
     }
 }
