@@ -2,6 +2,7 @@ package com.infosys.mtsimulator.domain.simulator.basesimulator;
 
 import com.infosys.mtsimulator.entity.MatchedString;
 import javassist.NotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
+@Slf4j
 public class BaseSimulatorImpl implements BaseSimulator {
     @Override
     public Pattern getPattern(String key) {
@@ -57,7 +59,7 @@ public class BaseSimulatorImpl implements BaseSimulator {
 
     @Override
     public String removeField(String key, String message) {
-        return message.replaceFirst("(?m)^" + key + "(.*)\\n", "");
+        return message.replaceFirst("(?m)^" + key + "(.*)\\R", "");
     }
 
     @Override

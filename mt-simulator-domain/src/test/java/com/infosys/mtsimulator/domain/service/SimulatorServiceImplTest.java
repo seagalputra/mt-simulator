@@ -33,4 +33,22 @@ class SimulatorServiceImplTest {
 
         assertEquals(expectedResponse, response);
     }
+
+    @Test
+    public void shouldReturnParsedMessageForMT320LendSimulator() {
+        ParseMessageRequest request = ParseMessageRequest.builder()
+                .simulatorMessage("{1:F01CENAIDJAAXXX0000000000}{2:I320BBIJIDJAXXXXN}{3:{108:2345}}{4:\n:15A:\n:20:2345-1\n:22A:NEWT\n:94A:BILA\n:22B:CONF\n:22C:BBIJJA0827CENAJA\n:82A:CENAIDJA\n:87A:BBIJIDJAXXX\n:15B:\n:17R:L\n:30T:20200131\n:30V:20200204\n:30P:20200304\n:32B:IDR100000000,\n:30X:20200304\n:34E:NIDR666194,44\n:37G:8,27\n:14D:ACT/360\n:15C:\n:57A:BBIJIDJAXXX\n:58A:BBIJIDJAXXX\n:15D:\n:57A:CENAIDJA\n-}")
+                .simulatorType(MT320LEND)
+                .build();
+
+        ParseMessageResponse expectedResponse = ParseMessageResponse.builder()
+                .autoMatchMessage("{1:F01CENAIDJAAXXX0000000000}{2:O320BBIJIDJAXXXXN}{3:{108:2345}}{4:\n:15A:\n:20:CPTY2345-1\n:22A:NEWT\n:94A:BILA\n:22B:CONF\n:22C:BBIJJA0827CENAJA\n:82A:BBIJIDJAXXX\n:87A:CENAIDJA\n:15B:\n:17R:B\n:30T:20200131\n:30V:20200204\n:30P:20200304\n:32B:IDR100000000,\n:30X:20200304\n:34E:IDR666194,44\n:37G:8,27\n:14D:ACT/360\n:15C:\n:57A:CENAIDJA\n:15D:\n:57A:BBIJIDJAXXX\n-}")
+                .partialMatchMessage("{1:F01CENAIDJAAXXX0000000000}{2:O320BBIJIDJAXXXXN}{3:{108:2345}}{4:\n:15A:\n:20:CPTY2345-1\n:22A:NEWT\n:94A:BILA\n:22B:CONF\n:22C:BBIJJA0827CENAJA\n:82A:BBIJIDJAXXX\n:87A:CENAIDJA\n:15B:\n:17R:B\n:30T:20191225\n:30V:20200204\n:30P:20200304\n:32B:IDR100000000,\n:30X:20200304\n:34E:IDR666194,44\n:37G:8,27\n:14D:ACT/360\n:15C:\n:57A:CENAIDJA\n:15D:\n:57A:BBIJIDJAXXX\n-}")
+                .unMatchMessage("{1:F01CENAIDJAAXXX0000000000}{2:O320BBIJIDJAXXXXN}{3:{108:2345}}{4:\n:15A:\n:20:CPTY2345-1\n:22A:NEWT\n:94A:BILA\n:22B:CONF\n:22C:BBIJJA0827CENAJA\n:82A:BBIJIDJAXXX\n:87A:CENAIDJA\n:15B:\n:17R:B\n:30T:20191225\n:30V:20191225\n:30P:20200101\n:32B:IDR100000000,\n:30X:20200304\n:34E:IDR666194,44\n:37G:8,27\n:14D:ACT/360\n:15C:\n:57A:CENAIDJA\n:15D:\n:57A:BBIJIDJAXXX\n-}")
+                .build();
+
+        ParseMessageResponse response = simulatorService.parseMessage(request);
+
+        assertEquals(expectedResponse, response);
+    }
 }
