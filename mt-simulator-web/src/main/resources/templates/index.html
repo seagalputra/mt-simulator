@@ -12,7 +12,7 @@
             <p class="text-white text-center m-0">INPUT</p>
         </div>
 
-        <form th:action="@{/}" class="mt-4 px-2" method="POST" th:object="${simulator}">
+        <form th:action="@{/}" class="mt-4 px-2" method="post" th:object="${simulator}">
             <div class="row">
                 <div class="col-9">
                     <div class="form-group form-row">
@@ -59,7 +59,7 @@
             <p class="text-white text-center m-0">OUTPUT</p>
         </div>
 
-        <form class="mt-4 px-2" th:object="${simulatorResult}">
+        <form th:action="@{/simulator/put}" class="mt-4 px-2" th:object="${simulatorResult}" method="post">
             <div class="row">
                 <div class="col-8">
                     <div class="form-group form-row">
@@ -67,7 +67,7 @@
                         <select name="mtEnvironmentType" id="mtEnvironmentType" class="form-control col-8">
                             <option selected disabled>Select an environment</option>
                             <div th:each="configuration : ${environmentConfiguration}">
-                                <option th:value="${configuration.ip}" th:text="${configuration.name} + ' ' + ${configuration.ip} + ' ' + ${configuration.path}"></option>
+                                <option th:value="${configuration.id}" th:text="${configuration.name} + ' ' + ${configuration.ip} + ' ' + ${configuration.path}"></option>
                             </div>
                         </select>
                     </div>

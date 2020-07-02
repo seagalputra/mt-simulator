@@ -6,6 +6,7 @@ import com.infosys.mtsimulator.api.response.ParseMessageResponse;
 import com.infosys.mtsimulator.properties.ConfigProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ public class DashboardController {
 
     private ParseMessageResponse parseMessageResponse;
     private ParseMessageRequest parseMessageRequest;
+    private List<Map<String, String>> environmentProperties;
 
     public DashboardController(SimulatorService simulatorService, ConfigProperties configProperties) {
         this.simulatorService = simulatorService;
@@ -33,12 +35,12 @@ public class DashboardController {
     public ModelAndView messageForm() {
         ParseMessageRequest request = ParseMessageRequest.builder().build();
         ParseMessageResponse response = ParseMessageResponse.builder().build();
-        List<Map<String, String>> environmentProperties = configProperties.getEnvironmentConfiguration();
+        this.environmentProperties = configProperties.getEnvironmentConfiguration();
 
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("simulator", request);
         modelAndView.addObject("simulatorResult", response);
-        modelAndView.addObject("environmentConfiguration", environmentProperties);
+        modelAndView.addObject("environmentConfiguration", this.environmentProperties);
         return modelAndView;
     }
 
@@ -54,6 +56,12 @@ public class DashboardController {
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("simulator", this.parseMessageRequest);
         modelAndView.addObject("simulatorResult", this.parseMessageResponse);
+        modelAndView.addObject("environmentConfiguration", this.environmentProperties);
         return modelAndView;
+    }
+
+    @PostMapping("/simulator/put")
+    public String putParsedMessageToFtp() {
+        return "redirect:/";
     }
 }

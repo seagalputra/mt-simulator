@@ -30,6 +30,7 @@ public class ConfigProperties {
 
         for (int index = 1; index <= numberOfEnvironment; index++) {
             Map<String, String> envProperty = new HashMap<>();
+            envProperty.put("id", String.valueOf(index));
             envProperty.put("name", environment.getProperty("env." + index + ".name"));
             envProperty.put("ip", environment.getProperty("env." + index + ".ip"));
             envProperty.put("path", environment.getProperty("env." + index + ".path"));
