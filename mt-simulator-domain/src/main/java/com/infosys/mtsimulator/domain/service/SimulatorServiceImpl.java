@@ -5,6 +5,7 @@ import com.infosys.mtsimulator.api.request.ParseMessageRequest;
 import com.infosys.mtsimulator.api.response.ParseMessageResponse;
 import javassist.NotFoundException;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import static com.infosys.mtsimulator.domain.constant.MTSimulatorConstant.*;
 
 @Service
+@Slf4j
 public class SimulatorServiceImpl implements SimulatorService, ApplicationContextAware {
 
     @Setter
@@ -37,7 +39,7 @@ public class SimulatorServiceImpl implements SimulatorService, ApplicationContex
             partialMatchMessage = simulator.parse(request.getSimulatorMessage(), PM);
             unMatchMessage = simulator.parse(request.getSimulatorMessage(), UM);
         } catch (NotFoundException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
 
         return ParseMessageResponse.builder()

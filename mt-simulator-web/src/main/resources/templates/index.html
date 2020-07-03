@@ -3,6 +3,9 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://thymeleaf.org/"
       layout:decorate="~{layout}">
+<head>
+    <title>BCA MT Simulator</title>
+</head>
 <body>
 <div class="row" layout:fragment="content">
 
@@ -59,15 +62,15 @@
             <p class="text-white text-center m-0">OUTPUT</p>
         </div>
 
-        <form th:action="@{/simulator/put}" class="mt-4 px-2" th:object="${simulatorResult}" method="post">
+        <form th:action="@{/simulator/put}" class="mt-4 px-2" method="post">
             <div class="row">
                 <div class="col-8">
                     <div class="form-group form-row">
-                        <label for="mtEnvironmentType" class="col-4 col-form-label">Environment : </label>
-                        <select name="mtEnvironmentType" id="mtEnvironmentType" class="form-control col-8">
+                        <label for="configId" class="col-4 col-form-label">Environment : </label>
+                        <select name="configId" id="configId" class="form-control col-8">
                             <option selected disabled>Select an environment</option>
                             <div th:each="configuration : ${environmentConfiguration}">
-                                <option th:value="${configuration.id}" th:text="${configuration.name} + ' ' + ${configuration.ip} + ' ' + ${configuration.path}"></option>
+                                <option th:value="${configuration.id}" th:text="${configuration.name} + ' - ' + ${configuration.ip} + ' - ' + ${configuration.path}"></option>
                             </div>
                         </select>
                     </div>
@@ -76,7 +79,26 @@
                 <div class="col-4">
                     <div class="d-flex align-items-start">
                         <button type="submit" class="btn btn-primary mr-2">PUT</button>
-                        <button type="button" class="btn btn-primary">View Log</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#logModal">View Log</button>
+
+                        <div class="modal fade" id="logModal" tabindex="-1" role="dialog" aria-labelledby="logModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="logModalLabel">LOG INFO</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        This is Log Modal
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -92,20 +114,29 @@
                 <div class="card-body p-3">
                     <div class="tab-content" id="nav-output-tab-content">
                         <div class="tab-pane fade show active" id="auto-match" role="tabpanel" aria-labelledby="nav-auto-match-tab">
+                            <div class="form-group" style="display:none;">
+                                <input id="autoMatchMessageType" name="autoMatchMessageType" type="hidden" class="form-control" th:value="AM">
+                            </div>
                             <div class="form-group m-0">
-                                <textarea rows="20" class="form-control" th:text="${simulatorResult.autoMatchMessage}"></textarea>
+                                <textarea id="autoMatchMessage" name="autoMatchMessage" rows="20" class="form-control" th:text="${simulatorResult.autoMatchMessage}"></textarea>
                             </div>
                         </div>
 
                         <div class="tab-pane fade" id="partial-match" role="tabpanel" aria-labelledby="nav-partial-match-tab">
+                            <div class="form-group" style="display:none;">
+                                <input id="partialMatchMessageType" name="partialMatchMessageType" type="hidden" class="form-control" th:value="PM">
+                            </div>
                             <div class="form-group m-0">
-                                <textarea rows="20" class="form-control" th:text="${simulatorResult.partialMatchMessage}"></textarea>
+                                <textarea id="partialMatchMessage" name="partialMatchMessage" rows="20" class="form-control" th:text="${simulatorResult.partialMatchMessage}"></textarea>
                             </div>
                         </div>
 
                         <div class="tab-pane fade" id="unmatch" role="tabpanel" aria-labelledby="nav-unmatch-tab">
+                            <div class="form-group" style="display:none;">
+                                <input id="unMatchMessageType" name="unMatchMessageType" type="hidden" class="form-control" th:value="UM">
+                            </div>
                             <div class="form-group m-0">
-                                <textarea rows="20" class="form-control" th:text="${simulatorResult.unMatchMessage}"></textarea>
+                                <textarea id="unMatchMessage" name="unMatchMessage" rows="20" class="form-control" th:text="${simulatorResult.unMatchMessage}"></textarea>
                             </div>
                         </div>
                     </div>

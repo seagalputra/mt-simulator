@@ -6,10 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Configuration
 @PropertySource("classpath:ftpConfig.properties")
@@ -30,7 +27,8 @@ public class ConfigProperties {
 
         for (int index = 1; index <= numberOfEnvironment; index++) {
             Map<String, String> envProperty = new HashMap<>();
-            envProperty.put("id", String.valueOf(index));
+            String configurationId = UUID.randomUUID().toString();
+            envProperty.put("id", configurationId);
             envProperty.put("name", environment.getProperty("env." + index + ".name"));
             envProperty.put("ip", environment.getProperty("env." + index + ".ip"));
             envProperty.put("path", environment.getProperty("env." + index + ".path"));

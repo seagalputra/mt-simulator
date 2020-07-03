@@ -1,15 +1,16 @@
 package com.infosys.mtsimulator.web.controller;
 
+import com.infosys.mtsimulator.api.request.SendFTPRequest;
 import com.infosys.mtsimulator.domain.service.SimulatorService;
 import com.infosys.mtsimulator.api.request.ParseMessageRequest;
 import com.infosys.mtsimulator.api.response.ParseMessageResponse;
 import com.infosys.mtsimulator.properties.ConfigProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -35,12 +36,14 @@ public class DashboardController {
     public ModelAndView messageForm() {
         ParseMessageRequest request = ParseMessageRequest.builder().build();
         ParseMessageResponse response = ParseMessageResponse.builder().build();
+        SendFTPRequest sendFTPRequest = SendFTPRequest.builder().build();
         this.environmentProperties = configProperties.getEnvironmentConfiguration();
 
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("simulator", request);
         modelAndView.addObject("simulatorResult", response);
         modelAndView.addObject("environmentConfiguration", this.environmentProperties);
+        modelAndView.addObject("ftpRequest", sendFTPRequest);
         return modelAndView;
     }
 
@@ -53,15 +56,27 @@ public class DashboardController {
 
     @GetMapping("/simulator/result")
     public ModelAndView getSimulatorResult() {
+        SendFTPRequest sendFTPRequest = SendFTPRequest.builder().build();
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("simulator", this.parseMessageRequest);
         modelAndView.addObject("simulatorResult", this.parseMessageResponse);
         modelAndView.addObject("environmentConfiguration", this.environmentProperties);
+        modelAndView.addObject("ftpRequest", sendFTPRequest);
         return modelAndView;
     }
 
     @PostMapping("/simulator/put")
-    public String putParsedMessageToFtp() {
+    public String putParsedMessageToFtp(@ModelAttribute SendFTPRequest sendFTPRequest) {
+        String configId = sendFTPRequest.getConfigId();
+
+        Map<String, String> ftpConfiguration = this.environmentProperties.stream()
+                .filter(environment -> environment.get("id").equals(configId))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Configuration Not Found!"));
+
+        log.info(ftpConfiguration.toString());
+        log.info(sendFTPRequest.toString());
+
         return "redirect:/";
     }
 }

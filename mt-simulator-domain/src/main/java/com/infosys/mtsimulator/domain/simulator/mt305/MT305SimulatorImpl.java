@@ -30,13 +30,13 @@ public class MT305SimulatorImpl implements SimulatorStrategy {
         messageResult = baseSimulator.addPrefixCPTY(":20:", messageResult);
         messageResult = baseSimulator.swapValue(":82A:", ":87A:", messageResult);
 
-        if (isContains(messageResult, ":23:BUY")) {
-            messageResult = messageResult.replace(":23:BUY", ":23:SELL");
+        if (isContains(messageResult, BUY_TAGS)) {
+            messageResult = messageResult.replace(BUY_TAGS, SELL_TAGS);
             messageResult = messageResult.replace(":34P:", ":34R:");
             messageResult = baseSimulator.removeUnusedField(":22U:", messageResult);
             messageResult = removeSenderCorrespondent(messageResult);
-        } else if (isContains(messageResult, ":23:SELL")) {
-            messageResult = messageResult.replace(":23:SELL", ":23:BUY");
+        } else if (isContains(messageResult, SELL_TAGS)) {
+            messageResult = messageResult.replace(SELL_TAGS, BUY_TAGS);
             messageResult = messageResult.replace(":34R:", ":34P:");
         }
 
