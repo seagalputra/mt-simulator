@@ -23,6 +23,11 @@
             <artifactId>mt-simulator-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.infosys</groupId>
+            <artifactId>mt-simulator-properties</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 

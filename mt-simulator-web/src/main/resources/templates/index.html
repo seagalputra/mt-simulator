@@ -62,7 +62,7 @@
             <p class="text-white text-center m-0">OUTPUT</p>
         </div>
 
-        <form th:action="@{/simulator/put}" class="mt-4 px-2" method="post">
+        <form id="simulatorOutput" th:action="@{/simulator/put?type=AM}" class="mt-4 px-2" method="post">
             <div class="row">
                 <div class="col-8">
                     <div class="form-group form-row">
@@ -105,36 +105,26 @@
 
             <div class="card mt-3">
                 <div class="card-header">
-                    <div class="nav nav-tabs card-header-tabs" id="nav-output-tab" role="tablist">
-                        <a href="#auto-match" class="nav-item nav-link active" id="nav-auto-match-tab" data-toggle="tab" role="tab" aria-controls="nav-auto-match-tab" aria-selected="true">Auto Match</a>
-                        <a href="#partial-match" class="nav-item nav-link" id="nav-partial-match-tab" data-toggle="tab" role="tab" aria-controls="nav-partial-match-tab" aria-selected="false">Partial Match</a>
-                        <a href="#unmatch" class="nav-item nav-link" id="nav-unmatch-tab" data-toggle="tab" role="tab" aria-controls="nav-unmatch-tab" aria-selected="false">UnMatch</a>
+                    <div class="nav nav-tabs card-header-tabs" id="nav-output-tabs" role="tablist">
+                        <a href="AM" class="nav-item nav-link active" id="nav-auto-match-tab" role="tab">Auto Match</a>
+                        <a href="PM" class="nav-item nav-link" id="nav-partial-match-tab" role="tab">Partial Match</a>
+                        <a href="UM" class="nav-item nav-link" id="nav-unmatch-tab" role="tab">UnMatch</a>
                     </div>
                 </div>
-                <div class="card-body p-3">
-                    <div class="tab-content" id="nav-output-tab-content">
+
+                <div class="card-body">
+                    <div class="tab-content" id="output-content">
                         <div class="tab-pane fade show active" id="auto-match" role="tabpanel" aria-labelledby="nav-auto-match-tab">
-                            <div class="form-group" style="display:none;">
-                                <input id="autoMatchMessageType" name="autoMatchMessageType" type="hidden" class="form-control" th:value="AM">
-                            </div>
                             <div class="form-group m-0">
                                 <textarea id="autoMatchMessage" name="autoMatchMessage" rows="20" class="form-control" th:text="${simulatorResult.autoMatchMessage}"></textarea>
                             </div>
                         </div>
-
                         <div class="tab-pane fade" id="partial-match" role="tabpanel" aria-labelledby="nav-partial-match-tab">
-                            <div class="form-group" style="display:none;">
-                                <input id="partialMatchMessageType" name="partialMatchMessageType" type="hidden" class="form-control" th:value="PM">
-                            </div>
                             <div class="form-group m-0">
                                 <textarea id="partialMatchMessage" name="partialMatchMessage" rows="20" class="form-control" th:text="${simulatorResult.partialMatchMessage}"></textarea>
                             </div>
                         </div>
-
                         <div class="tab-pane fade" id="unmatch" role="tabpanel" aria-labelledby="nav-unmatch-tab">
-                            <div class="form-group" style="display:none;">
-                                <input id="unMatchMessageType" name="unMatchMessageType" type="hidden" class="form-control" th:value="UM">
-                            </div>
                             <div class="form-group m-0">
                                 <textarea id="unMatchMessage" name="unMatchMessage" rows="20" class="form-control" th:text="${simulatorResult.unMatchMessage}"></textarea>
                             </div>

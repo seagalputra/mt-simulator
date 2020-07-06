@@ -1,6 +1,7 @@
 package com.infosys.mtsimulator.web.controller;
 
 import com.infosys.mtsimulator.api.request.SendFTPRequest;
+import com.infosys.mtsimulator.domain.service.FileTransferService;
 import com.infosys.mtsimulator.domain.service.SimulatorService;
 import com.infosys.mtsimulator.api.request.ParseMessageRequest;
 import com.infosys.mtsimulator.api.response.ParseMessageResponse;
@@ -21,14 +22,16 @@ import java.util.Map;
 public class DashboardController {
 
     private final SimulatorService simulatorService;
+    private final FileTransferService fileTransferService;
     private final ConfigProperties configProperties;
 
     private ParseMessageResponse parseMessageResponse;
     private ParseMessageRequest parseMessageRequest;
     private List<Map<String, String>> environmentProperties;
 
-    public DashboardController(SimulatorService simulatorService, ConfigProperties configProperties) {
+    public DashboardController(SimulatorService simulatorService, FileTransferService fileTransferService, ConfigProperties configProperties) {
         this.simulatorService = simulatorService;
+        this.fileTransferService = fileTransferService;
         this.configProperties = configProperties;
     }
 
@@ -66,17 +69,8 @@ public class DashboardController {
     }
 
     @PostMapping("/simulator/put")
-    public String putParsedMessageToFtp(@ModelAttribute SendFTPRequest sendFTPRequest) {
-        String configId = sendFTPRequest.getConfigId();
-
-        Map<String, String> ftpConfiguration = this.environmentProperties.stream()
-                .filter(environment -> environment.get("id").equals(configId))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Configuration Not Found!"));
-
-        log.info(ftpConfiguration.toString());
-        log.info(sendFTPRequest.toString());
-
+    public String putParsedMessageToFtp(@ModelAttribute SendFTPRequest sendFTPRequest, @RequestParam(value="type", required = false) String type) {
+        fileTransferService.sendFile(sendFTPRequest, type);
         return "redirect:/";
     }
 }
