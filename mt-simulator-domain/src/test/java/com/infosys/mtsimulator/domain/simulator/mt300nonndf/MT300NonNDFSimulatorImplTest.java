@@ -28,24 +28,15 @@ class MT300NonNDFSimulatorImplTest {
     @Test
     public void shouldReturnConvertedStringFromInputWithTypeAutoMatch() {
         String expectedMessage = "{1:F01CENAIDJAAXXX0000000000}{2:O3001234556XXXXXN}{3:{108:6669}}{4:\n:15A:\n:20:CPTY6669-1\n:22A:NEWT\n:22C:9625CENAJA\n:17I:Y\n:82A:1234556\n:87A:CENAIDJA\n:17F:N\n:15B:\n:30T:20200203\n:30V:20200205\n:36:11559,625\n:32B:IDR11559625000,\n:57A:1234556\n:33B:EUR1000000,\n:57A:CENAIDJA\n-}";
-        String resultMessage = "";
-        try {
-            resultMessage = mt300NonNDFSimulator.parse(inputMessage, MTSimulatorConstant.AM);
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-        }
+        String resultMessage = mt300NonNDFSimulator.parse(inputMessage, MTSimulatorConstant.AM);
+
         assertEquals(expectedMessage, resultMessage);
     }
 
     @Test
     public void shouldReturnConvertedStringFromInputWithTypePartialMatch() {
         String expectedMessage = "{1:F01CENAIDJAAXXX0000000000}{2:O3001234556XXXXXN}{3:{108:6669}}{4:\n:15A:\n:20:CPTY6669-1\n:22A:NEWT\n:22C:9625CENAJA\n:17I:Y\n:82A:1234556\n:87A:CENAIDJA\n:17F:N\n:15B:\n:30T:20200203\n:30V:20200205\n:36:11559,625\n:32B:IDR11559625000,\n:57A:CENAIDJA\n:33B:EUR1000000,\n:57A:1234556\n-}";
-        String resultMessage = "";
-        try {
-            resultMessage = mt300NonNDFSimulator.parse(inputMessage, MTSimulatorConstant.PM);
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-        }
+        String resultMessage = mt300NonNDFSimulator.parse(inputMessage, MTSimulatorConstant.PM);
 
         assertEquals(expectedMessage, resultMessage);
     }
@@ -53,12 +44,7 @@ class MT300NonNDFSimulatorImplTest {
     @Test
     public void shouldReturnConvertedStringFromInputWithTypeUnMatch() {
         String expectedMessage = "{1:F01CENAIDJAAXXX0000000000}{2:O3001234556XXXXXN}{3:{108:6669}}{4:\n:15A:\n:20:CPTY6669-1\n:22A:NEWT\n:22C:9625CENAJA\n:17I:Y\n:82A:1234556\n:87A:CENAIDJA\n:17F:N\n:15B:\n:30T:20191225\n:30V:20200101\n:36:11559,625\n:32B:IDR11559625000,\n:57A:1234556\n:33B:EUR1000000,\n:57A:CENAIDJA\n-}";
-        String resultMessage = "";
-        try {
-            resultMessage = mt300NonNDFSimulator.parse(inputMessage, MTSimulatorConstant.UM);
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-        }
+        String resultMessage = mt300NonNDFSimulator.parse(inputMessage, MTSimulatorConstant.UM);
 
         assertEquals(expectedMessage, resultMessage);
     }

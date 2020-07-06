@@ -3,7 +3,6 @@ package com.infosys.mtsimulator.domain.service;
 import com.infosys.mtsimulator.domain.simulator.SimulatorStrategy;
 import com.infosys.mtsimulator.api.request.ParseMessageRequest;
 import com.infosys.mtsimulator.api.response.ParseMessageResponse;
-import javassist.NotFoundException;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
@@ -31,16 +30,9 @@ public class SimulatorServiceImpl implements SimulatorService, ApplicationContex
     }
 
     private ParseMessageResponse parseSimulatorMessage(ParseMessageRequest request, SimulatorStrategy simulator) {
-        String autoMatchMessage = "";
-        String partialMatchMessage = "";
-        String unMatchMessage = "";
-        try {
-            autoMatchMessage = simulator.parse(request.getSimulatorMessage(), AM);
-            partialMatchMessage = simulator.parse(request.getSimulatorMessage(), PM);
-            unMatchMessage = simulator.parse(request.getSimulatorMessage(), UM);
-        } catch (NotFoundException e) {
-            log.error(e.getMessage());
-        }
+        String autoMatchMessage = simulator.parse(request.getSimulatorMessage(), AM);
+        String partialMatchMessage = simulator.parse(request.getSimulatorMessage(), PM);
+        String unMatchMessage = simulator.parse(request.getSimulatorMessage(), UM);
 
         return ParseMessageResponse.builder()
                 .autoMatchMessage(autoMatchMessage)

@@ -1,8 +1,8 @@
 package com.infosys.mtsimulator.domain.simulator.basesimulator;
 
+import com.infosys.mtsimulator.api.exception.NotFoundException;
 import com.infosys.mtsimulator.domain.DomainConfiguration;
 import com.infosys.mtsimulator.entity.MatchedString;
-import javassist.NotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +34,7 @@ class BaseSimulatorImplTest {
                 .getPattern(":20:")
                 .pattern();
 
-        MatchedString matchedString = new MatchedString();
-        try {
-            matchedString = baseSimulator.matchPattern(":20:1234\n:8T:ACVD\n:12D:78839,\n", pattern);
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-        }
+        MatchedString matchedString = baseSimulator.matchPattern(":20:1234\n:8T:ACVD\n:12D:78839,\n", pattern);
 
         assertEquals(":20:1234", matchedString.getMatched());
         assertEquals("1234", matchedString.getValue());
@@ -70,12 +65,7 @@ class BaseSimulatorImplTest {
 
     @Test
     public void shouldReturnSwappedValueMessageWithSpecificKey() {
-        String swappedValue = "";
-        try {
-            swappedValue = baseSimulator.swapValue(":82A:", ":87A:", ":82A:CENAIDJA\n:87A:1234556");
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-        }
+        String swappedValue = baseSimulator.swapValue(":82A:", ":87A:", ":82A:CENAIDJA\n:87A:1234556");
         assertEquals(":82A:1234556\n:87A:CENAIDJA", swappedValue);
     }
 
@@ -96,12 +86,7 @@ class BaseSimulatorImplTest {
 
     @Test
     public void shouldReturnSwappedFieldInMessageWithTwoKeys() {
-        String swappedField = "";
-        try {
-            swappedField = baseSimulator.swapField(":57J:", ":57A:", ":32B:USD1000000,\n:57J:/NOSI/NETS\n:33B:IDR17076000000,\n:57A:1234556");
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-        }
+        String swappedField = baseSimulator.swapField(":57J:", ":57A:", ":32B:USD1000000,\n:57J:/NOSI/NETS\n:33B:IDR17076000000,\n:57A:1234556");
         assertEquals(":32B:USD1000000,\n:57A:1234556\n:33B:IDR17076000000,\n:57J:/NOSI/NETS", swappedField);
     }
 }

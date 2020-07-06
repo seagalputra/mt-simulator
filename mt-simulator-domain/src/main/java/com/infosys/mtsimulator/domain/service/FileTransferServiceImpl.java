@@ -2,6 +2,8 @@ package com.infosys.mtsimulator.domain.service;
 
 import com.infosys.mtsimulator.api.exception.FailedToSendException;
 import com.infosys.mtsimulator.api.request.SendFTPRequest;
+import com.infosys.mtsimulator.domain.simulator.basesimulator.BaseSimulator;
+import com.infosys.mtsimulator.entity.MatchedString;
 import com.infosys.mtsimulator.properties.ConfigProperties;
 import com.infosys.mtsimulator.properties.FTPConfiguration;
 import lombok.AllArgsConstructor;
@@ -25,6 +27,7 @@ public class FileTransferServiceImpl implements FileTransferService {
 
     private final ConfigProperties configProperties;
     private final FTPConfiguration ftpConfiguration;
+    private final BaseSimulator baseSimulator;
 
     @Override
     @Async
@@ -35,12 +38,19 @@ public class FileTransferServiceImpl implements FileTransferService {
         SftpSession session = ftpConfiguration.getFTPConfigurationFactory(configuration)
                 .getSession();
 
+        String filename = getFilename(message);
+
         InputStream inputStream = new ByteArrayInputStream(message.getBytes());
         try {
-            session.write(inputStream, configuration.get("path") + "/files.txt");
+            session.write(inputStream, configuration.get("path") + "/" + filename + ".txt");
         } catch (IOException e) {
             throw new FailedToSendException("Failed to send file to SFTP");
         }
+    }
+
+    private String getFilename(String message) {
+        MatchedString matchedString = baseSimulator.matchPattern(message, ":20:");
+        return matchedString.getValue();
     }
 
     private String filterMessage(SendFTPRequest sendFTPRequest, String type) {

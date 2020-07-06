@@ -28,12 +28,7 @@ class MT300NDFFixingImplTest {
     @Test
     public void shouldReturnParsedMessageWithInputAndTypeAutoMatch() {
         String expectedResult = "{1:F01CENAIDJAAXXX0000000000}{2:O3001234556XXXXXN}{3:{108:2034}}{4:\n:15A:\n:20:CPTY2034-2\n:22A:NEWT\n:22C:7076CENAJA\n:17I:Y\n:82A:1234556\n:87A:CENAIDJA\n:17F:Y\n:17O:Y\n:20:CPTY2034-1\n:15B:\n:30T:20200130\n:30V:20200203\n:36:17076,\n:32B:IDR17076000000,\n:57A:1234556\n:33B:USD1000000,\n:57J:/NOSI/NETS\n-}";
-        String actualResult = "";
-        try {
-            actualResult = simulatorStrategy.parse(inputMessage, AM);
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-        }
+        String actualResult = simulatorStrategy.parse(inputMessage, AM);
 
         assertEquals(expectedResult, actualResult);
     }
@@ -41,12 +36,7 @@ class MT300NDFFixingImplTest {
     @Test
     public void shouldReturnParsedMessageWithInputAndTypePartialMatch() {
         String expectedResult = "{1:F01CENAIDJAAXXX0000000000}{2:O3001234556XXXXXN}{3:{108:2034}}{4:\n:15A:\n:20:CPTY2034-2\n:22A:NEWT\n:22C:7076CENAJA\n:17I:Y\n:82A:1234556\n:87A:CENAIDJA\n:17F:Y\n:17O:Y\n:20:CPTY2034-1\n:15B:\n:30T:20200130\n:30V:20200203\n:36:17076,\n:32B:IDR17076000000,\n:57A:1234556\n:33B:USD1000000,\n:57J:/NOSI/NETS\n-}";
-        String actualResult = "";
-        try {
-            actualResult = simulatorStrategy.parse(inputMessage, PM);
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-        }
+        String actualResult = simulatorStrategy.parse(inputMessage, PM);
 
         assertEquals(expectedResult, actualResult);
     }
@@ -54,12 +44,7 @@ class MT300NDFFixingImplTest {
     @Test
     public void shouldReturnParsedMessageWithInputAndTypeUnMatch() {
         String expectedResult = "{1:F01CENAIDJAAXXX0000000000}{2:O3001234556XXXXXN}{3:{108:2034}}{4:\n:15A:\n:20:CPTY2034-2\n:22A:NEWT\n:22C:7076CENAJA\n:17I:Y\n:82A:1234556\n:87A:CENAIDJA\n:17F:Y\n:17O:Y\n:20:CPTY2034-1\n:15B:\n:30T:20200130\n:30V:20200203\n:36:17076,\n:32B:IDR17076000000,\n:57A:1234556\n:33B:USD1000000,\n:57J:/NOSI/NETS\n-}";
-        String actualResult = "";
-        try {
-            actualResult = simulatorStrategy.parse(inputMessage, UM);
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-        }
+        String actualResult = simulatorStrategy.parse(inputMessage, UM);
 
         assertEquals(expectedResult, actualResult);
     }

@@ -20,7 +20,7 @@ public class MT320LendSimulatorImpl implements SimulatorStrategy {
     }
 
     @Override
-    public String parse(String message, String type) throws NotFoundException {
+    public String parse(String message, String type) {
         String messageResult = baseSimulator.replaceApplicationHeader(message);
         messageResult = baseSimulator.addPrefixCPTY(":20:", messageResult);
         messageResult = baseSimulator.swapValue(":82A:", ":87A:", messageResult);

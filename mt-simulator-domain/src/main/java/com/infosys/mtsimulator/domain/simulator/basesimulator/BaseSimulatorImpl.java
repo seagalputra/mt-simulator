@@ -1,7 +1,7 @@
 package com.infosys.mtsimulator.domain.simulator.basesimulator;
 
+import com.infosys.mtsimulator.api.exception.NotFoundException;
 import com.infosys.mtsimulator.entity.MatchedString;
-import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +21,7 @@ public class BaseSimulatorImpl implements BaseSimulator {
     }
 
     @Override
-    public MatchedString matchPattern(String message, String pattern) throws NotFoundException {
+    public MatchedString matchPattern(String message, String pattern) {
         Matcher matcher = getPattern(pattern).matcher(message);
         if (!matcher.find()) throw new NotFoundException("No String Found!");
 
@@ -42,7 +42,7 @@ public class BaseSimulatorImpl implements BaseSimulator {
     }
 
     @Override
-    public String swapValue(String firstKey, String secondKey, String message) throws NotFoundException {
+    public String swapValue(String firstKey, String secondKey, String message) {
         String result = "";
         String matchedFirstPattern = matchPattern(message, firstKey).getValue();
         String matchedSecondPattern = matchPattern(message, secondKey).getValue();
@@ -73,7 +73,7 @@ public class BaseSimulatorImpl implements BaseSimulator {
     }
 
     @Override
-    public String swapField(String firstKey, String secondKey, String message) throws NotFoundException {
+    public String swapField(String firstKey, String secondKey, String message) {
         MatchedString firstMatched = matchPattern(message, firstKey);
         MatchedString secondMatched = matchPattern(message, secondKey);
 
