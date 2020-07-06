@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  sftp:
+    image: atmoz/sftp
+    ports:
+    - "22:22"
+    command: admin:admin:::ftp_files

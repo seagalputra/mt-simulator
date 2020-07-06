@@ -1,11 +1,18 @@
 package com.infosys.mtsimulator.domain.service;
 
+import com.infosys.mtsimulator.api.exception.FailedToSendException;
 import com.infosys.mtsimulator.api.request.SendFTPRequest;
 import com.infosys.mtsimulator.properties.ConfigProperties;
+import com.infosys.mtsimulator.properties.FTPConfiguration;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.integration.sftp.session.SftpSession;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -17,14 +24,23 @@ import static com.infosys.mtsimulator.domain.constant.MTSimulatorConstant.*;
 public class FileTransferServiceImpl implements FileTransferService {
 
     private final ConfigProperties configProperties;
+    private final FTPConfiguration ftpConfiguration;
 
     @Override
+    @Async
     public void sendFile(SendFTPRequest sendFTPRequest, String type) {
         Map<String, String> configuration = obtainEnvironment(sendFTPRequest.getConfigId());
         String message = filterMessage(sendFTPRequest, type);
 
-        log.info(message);
-        log.info(configuration.toString());
+        SftpSession session = ftpConfiguration.getFTPConfigurationFactory(configuration)
+                .getSession();
+
+        InputStream inputStream = new ByteArrayInputStream(message.getBytes());
+        try {
+            session.write(inputStream, configuration.get("path") + "/files.txt");
+        } catch (IOException e) {
+            throw new FailedToSendException("Failed to send file to SFTP");
+        }
     }
 
     private String filterMessage(SendFTPRequest sendFTPRequest, String type) {
