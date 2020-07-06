@@ -2,14 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
     <modules>
-        <module>mt-simulator-entity</module>
-        <module>mt-simulator-domain</module>
-        <module>mt-simulator-properties</module>
-        <module>mt-simulator-web</module>
         <module>mt-simulator-api</module>
+        <module>mt-simulator-entity</module>
+        <module>mt-simulator-properties</module>
+        <module>mt-simulator-domain</module>
+        <module>mt-simulator-web</module>
     </modules>
+    <packaging>pom</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -84,14 +84,4 @@
             </exclusions>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-
 </project>
