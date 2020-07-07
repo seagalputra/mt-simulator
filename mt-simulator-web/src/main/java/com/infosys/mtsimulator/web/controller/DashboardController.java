@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +30,7 @@ public class DashboardController {
     private ParseMessageResponse parseMessageResponse;
     private ParseMessageRequest parseMessageRequest;
     private List<Map<String, String>> environmentProperties;
+    private List<String> listLog;
 
     public DashboardController(SimulatorService simulatorService, FileTransferService fileTransferService, ConfigProperties configProperties) {
         this.simulatorService = simulatorService;
@@ -42,12 +44,18 @@ public class DashboardController {
         ParseMessageResponse response = ParseMessageResponse.builder().build();
         SendFTPRequest sendFTPRequest = SendFTPRequest.builder().build();
         this.environmentProperties = configProperties.getEnvironmentConfiguration();
+        try {
+            this.listLog = fileTransferService.getLogFile();
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
 
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("simulator", request);
         modelAndView.addObject("simulatorResult", response);
         modelAndView.addObject("environmentConfiguration", this.environmentProperties);
         modelAndView.addObject("ftpRequest", sendFTPRequest);
+        modelAndView.addObject("logFiles", this.listLog);
         return modelAndView;
     }
 
@@ -66,6 +74,7 @@ public class DashboardController {
         modelAndView.addObject("simulatorResult", this.parseMessageResponse);
         modelAndView.addObject("environmentConfiguration", this.environmentProperties);
         modelAndView.addObject("ftpRequest", sendFTPRequest);
+        modelAndView.addObject("logFiles", this.listLog);
         return modelAndView;
     }
 

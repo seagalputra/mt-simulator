@@ -1,5 +1,6 @@
 package com.infosys.mtsimulator.domain.service;
 
+import com.google.common.io.Files;
 import com.infosys.mtsimulator.api.exception.FailedToSendException;
 import com.infosys.mtsimulator.api.request.SendFTPRequest;
 import com.infosys.mtsimulator.domain.common.EnvironmentMapper;
@@ -14,8 +15,11 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Map;
 
 import static com.infosys.mtsimulator.domain.constant.MTSimulatorConstant.*;
@@ -47,6 +51,12 @@ public class FileTransferServiceImpl implements FileTransferService {
         } catch (IOException e) {
             throw new FailedToSendException("Failed to send file to SFTP");
         }
+    }
+
+    @Override
+    public List<String> getLogFile() throws IOException {
+        File file = new File("application.log");
+        return Files.readLines(file, StandardCharsets.UTF_8);
     }
 
     private String getFilename(String message) {

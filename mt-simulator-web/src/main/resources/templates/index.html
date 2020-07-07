@@ -82,7 +82,7 @@
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#logModal">View Log</button>
 
                         <div class="modal fade" id="logModal" tabindex="-1" role="dialog" aria-labelledby="logModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="logModalLabel">LOG INFO</h5>
@@ -91,7 +91,11 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        This is Log Modal
+                                        <div class="list-log">
+                                            <ul th:each="log : ${logFiles}">
+                                                <li th:text="${log}"></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
