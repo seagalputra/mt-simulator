@@ -1,14 +1,15 @@
 package com.infosys.mtsimulator.domain.service;
 
-import com.infosys.mtsimulator.domain.DomainConfiguration;
 import com.infosys.mtsimulator.api.request.ParseMessageRequest;
 import com.infosys.mtsimulator.api.response.ParseMessageResponse;
+import com.infosys.mtsimulator.domain.DomainConfiguration;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static com.infosys.mtsimulator.domain.constant.MTSimulatorConstant.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static com.infosys.mtsimulator.domain.constant.MTSimulatorConstant.MT300_NON_NDF;
+import static com.infosys.mtsimulator.domain.constant.MTSimulatorConstant.MT320LEND;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(classes = DomainConfiguration.class)
 class SimulatorServiceImplTest {

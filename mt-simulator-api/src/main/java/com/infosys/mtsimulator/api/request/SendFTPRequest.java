@@ -9,6 +9,9 @@ import lombok.Data;
 @Data
 public class SendFTPRequest {
     private String configId;
+    private String simulatorType;
+    private String messageType;
+    private String clientAddress;
     private String autoMatchMessage;
     private String partialMatchMessage;
     private String unMatchMessage;

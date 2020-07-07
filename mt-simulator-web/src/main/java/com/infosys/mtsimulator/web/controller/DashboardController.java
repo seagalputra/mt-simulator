@@ -1,10 +1,10 @@
 package com.infosys.mtsimulator.web.controller;
 
+import com.infosys.mtsimulator.api.request.ParseMessageRequest;
 import com.infosys.mtsimulator.api.request.SendFTPRequest;
+import com.infosys.mtsimulator.api.response.ParseMessageResponse;
 import com.infosys.mtsimulator.domain.service.FileTransferService;
 import com.infosys.mtsimulator.domain.service.SimulatorService;
-import com.infosys.mtsimulator.api.request.ParseMessageRequest;
-import com.infosys.mtsimulator.api.response.ParseMessageResponse;
 import com.infosys.mtsimulator.properties.ConfigProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -69,8 +70,22 @@ public class DashboardController {
     }
 
     @PostMapping("/simulator/put")
-    public String putParsedMessageToFtp(@ModelAttribute SendFTPRequest sendFTPRequest, @RequestParam(value="type", required = false) String type) {
-        fileTransferService.sendFile(sendFTPRequest, type);
+    public String putParsedMessageToFtp(@ModelAttribute SendFTPRequest sendFTPRequest, @RequestParam(value="type", required = false) String type, HttpServletRequest request) {
+        String remoteAddress = request.getHeader("X-FORWARDED-FOR");
+        if (remoteAddress == null || "".equals(remoteAddress)) {
+            remoteAddress = request.getRemoteAddr();
+        }
+
+        SendFTPRequest ftpRequest = SendFTPRequest.builder()
+                .configId(sendFTPRequest.getConfigId())
+                .simulatorType(this.parseMessageRequest.getSimulatorType())
+                .messageType(type)
+                .clientAddress(remoteAddress)
+                .autoMatchMessage(sendFTPRequest.getAutoMatchMessage())
+                .partialMatchMessage(sendFTPRequest.getPartialMatchMessage())
+                .unMatchMessage(sendFTPRequest.getUnMatchMessage())
+                .build();
+        fileTransferService.sendFile(ftpRequest);
         return "redirect:/";
     }
 }

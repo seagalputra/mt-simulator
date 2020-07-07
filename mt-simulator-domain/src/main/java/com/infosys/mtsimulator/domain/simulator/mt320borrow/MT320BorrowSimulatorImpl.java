@@ -2,7 +2,6 @@ package com.infosys.mtsimulator.domain.simulator.mt320borrow;
 
 import com.infosys.mtsimulator.domain.simulator.SimulatorStrategy;
 import com.infosys.mtsimulator.domain.simulator.basesimulator.BaseSimulator;
-import javassist.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

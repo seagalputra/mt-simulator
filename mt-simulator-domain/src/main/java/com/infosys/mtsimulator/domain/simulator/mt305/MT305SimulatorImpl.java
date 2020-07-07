@@ -3,7 +3,6 @@ package com.infosys.mtsimulator.domain.simulator.mt305;
 import com.google.common.collect.Iterables;
 import com.infosys.mtsimulator.domain.simulator.SimulatorStrategy;
 import com.infosys.mtsimulator.domain.simulator.basesimulator.BaseSimulator;
-import javassist.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

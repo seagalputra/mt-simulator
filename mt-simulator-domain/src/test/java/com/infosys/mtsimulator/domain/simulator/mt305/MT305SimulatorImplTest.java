@@ -2,7 +2,6 @@ package com.infosys.mtsimulator.domain.simulator.mt305;
 
 import com.infosys.mtsimulator.domain.DomainConfiguration;
 import com.infosys.mtsimulator.domain.simulator.SimulatorStrategy;
-import javassist.NotFoundException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static com.infosys.mtsimulator.domain.constant.MTSimulatorConstant.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(classes = DomainConfiguration.class)
 class MT305SimulatorImplTest {

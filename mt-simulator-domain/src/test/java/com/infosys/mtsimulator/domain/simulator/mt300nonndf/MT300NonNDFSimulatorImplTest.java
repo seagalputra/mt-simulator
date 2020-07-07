@@ -1,16 +1,15 @@
 package com.infosys.mtsimulator.domain.simulator.mt300nonndf;
 
 import com.infosys.mtsimulator.domain.DomainConfiguration;
-import com.infosys.mtsimulator.domain.simulator.SimulatorStrategy;
 import com.infosys.mtsimulator.domain.constant.MTSimulatorConstant;
-import javassist.NotFoundException;
+import com.infosys.mtsimulator.domain.simulator.SimulatorStrategy;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(classes = DomainConfiguration.class)
 class MT300NonNDFSimulatorImplTest {

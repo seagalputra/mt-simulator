@@ -2,9 +2,10 @@ package com.infosys.mtsimulator.domain.service;
 
 import com.infosys.mtsimulator.api.exception.FailedToSendException;
 import com.infosys.mtsimulator.api.request.SendFTPRequest;
+import com.infosys.mtsimulator.domain.common.EnvironmentMapper;
+import com.infosys.mtsimulator.domain.common.SendFTPLogger;
 import com.infosys.mtsimulator.domain.simulator.basesimulator.BaseSimulator;
 import com.infosys.mtsimulator.entity.MatchedString;
-import com.infosys.mtsimulator.properties.ConfigProperties;
 import com.infosys.mtsimulator.properties.FTPConfiguration;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 import java.util.Map;
 
 import static com.infosys.mtsimulator.domain.constant.MTSimulatorConstant.*;
@@ -25,15 +25,16 @@ import static com.infosys.mtsimulator.domain.constant.MTSimulatorConstant.*;
 @Slf4j
 public class FileTransferServiceImpl implements FileTransferService {
 
-    private final ConfigProperties configProperties;
     private final FTPConfiguration ftpConfiguration;
+    private final EnvironmentMapper environmentMapper;
     private final BaseSimulator baseSimulator;
 
     @Override
     @Async
-    public void sendFile(SendFTPRequest sendFTPRequest, String type) {
-        Map<String, String> configuration = obtainEnvironment(sendFTPRequest.getConfigId());
-        String message = filterMessage(sendFTPRequest, type);
+    @SendFTPLogger
+    public void sendFile(SendFTPRequest sendFTPRequest) {
+        Map<String, String> configuration = environmentMapper.obtainEnvironment(sendFTPRequest.getConfigId());
+        String message = filterMessage(sendFTPRequest);
 
         SftpSession session = ftpConfiguration.getFTPConfigurationFactory(configuration)
                 .getSession();
@@ -53,23 +54,15 @@ public class FileTransferServiceImpl implements FileTransferService {
         return matchedString.getValue();
     }
 
-    private String filterMessage(SendFTPRequest sendFTPRequest, String type) {
+    private String filterMessage(SendFTPRequest sendFTPRequest) {
         String message = "";
-        if (isAutoMatchType(type)) {
+        if (isAutoMatchType(sendFTPRequest.getMessageType())) {
             message = sendFTPRequest.getAutoMatchMessage();
-        } else if (isPartialMatch(type)) {
+        } else if (isPartialMatch(sendFTPRequest.getMessageType())) {
             message = sendFTPRequest.getPartialMatchMessage();
-        } else if (isUnMatchType(type)) {
+        } else if (isUnMatchType(sendFTPRequest.getMessageType())) {
             message = sendFTPRequest.getUnMatchMessage();
         }
         return message;
-    }
-
-    private Map<String, String> obtainEnvironment(String configId) {
-        List<Map<String, String>> environmentList = configProperties.getEnvironmentConfiguration();
-        return environmentList.stream()
-                .filter(environment -> environment.get("id").equals(configId))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Configuration Not Found!"));
     }
 }

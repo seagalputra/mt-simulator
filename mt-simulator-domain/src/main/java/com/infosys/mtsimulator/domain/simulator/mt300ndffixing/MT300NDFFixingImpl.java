@@ -2,11 +2,10 @@ package com.infosys.mtsimulator.domain.simulator.mt300ndffixing;
 
 import com.infosys.mtsimulator.domain.simulator.SimulatorStrategy;
 import com.infosys.mtsimulator.domain.simulator.basesimulator.BaseSimulator;
-import javassist.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import static com.infosys.mtsimulator.domain.constant.MTSimulatorConstant.*;
+import static com.infosys.mtsimulator.domain.constant.MTSimulatorConstant.MT300_NDF_FIXING;
 
 @Component
 @AllArgsConstructor
