@@ -105,26 +105,30 @@
 
             <div class="card mt-3">
                 <div class="card-header">
-                    <div class="nav nav-tabs card-header-tabs" id="nav-output-tabs" role="tablist">
-                        <a href="AM" class="nav-item nav-link active" id="nav-auto-match-tab" role="tab">Auto Match</a>
-                        <a href="PM" class="nav-item nav-link" id="nav-partial-match-tab" role="tab">Partial Match</a>
-                        <a href="UM" class="nav-item nav-link" id="nav-unmatch-tab" role="tab">UnMatch</a>
-                    </div>
+                    <nav>
+                        <div class="nav nav-tabs card-header-tabs" id="nav-output-tabs" role="tablist">
+                            <a href="#AM" class="nav-item nav-link active" id="nav-auto-match-tab" role="tab" data-toggle="tab" aria-controls="nav-auto-match" aria-selected="true">Auto Match</a>
+                            <a href="#PM" class="nav-item nav-link" id="nav-partial-match-tab" role="tab" data-toggle="tab" aria-controls="nav-partial-match" aria-selected="false">Partial Match</a>
+                            <a href="#UM" class="nav-item nav-link" id="nav-unmatch-tab" role="tab" data-toggle="tab" aria-controls="nav-unmatch" aria-selected="false">UnMatch</a>
+                        </div>
+                    </nav>
                 </div>
 
                 <div class="card-body">
                     <div class="tab-content" id="output-content">
-                        <div class="tab-pane fade show active" id="auto-match" role="tabpanel" aria-labelledby="nav-auto-match-tab">
+                        <div class="tab-pane fade show active" id="AM" role="tabpanel" aria-labelledby="nav-auto-match-tab">
                             <div class="form-group m-0">
                                 <textarea id="autoMatchMessage" name="autoMatchMessage" rows="20" class="form-control" th:text="${simulatorResult.autoMatchMessage}"></textarea>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="partial-match" role="tabpanel" aria-labelledby="nav-partial-match-tab">
+
+                        <div class="tab-pane fade" id="PM" role="tabpanel" aria-labelledby="nav-partial-match-tab">
                             <div class="form-group m-0">
                                 <textarea id="partialMatchMessage" name="partialMatchMessage" rows="20" class="form-control" th:text="${simulatorResult.partialMatchMessage}"></textarea>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="unmatch" role="tabpanel" aria-labelledby="nav-unmatch-tab">
+
+                        <div class="tab-pane fade" id="UM" role="tabpanel" aria-labelledby="nav-unmatch-tab">
                             <div class="form-group m-0">
                                 <textarea id="unMatchMessage" name="unMatchMessage" rows="20" class="form-control" th:text="${simulatorResult.unMatchMessage}"></textarea>
                             </div>

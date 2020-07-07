@@ -3,6 +3,8 @@ $(document).ready(function() {
     event.preventDefault();
     $(this).tab('show');
     const target = $(event.target).attr('href');
-    $("#simulatorOutput").attr("action", `/simulator/put?type=${target}`);
+    const messageType = target.split("");
+    messageType.shift();
+    $("#simulatorOutput").attr("action", `/simulator/put?type=${messageType.join("")}`);
   })
 })
